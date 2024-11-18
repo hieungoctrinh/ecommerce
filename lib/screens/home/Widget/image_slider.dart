@@ -22,7 +22,7 @@ class ImageSlider extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               allowImplicitScrolling: true,
               onPageChanged: onChange,
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               children: [
                 Image.asset(
                   "images/slider.jpg",

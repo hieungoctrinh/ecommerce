@@ -21,6 +21,22 @@ class ItemDetail extends StatelessWidget {
               '\$${product.price}',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
             ),
+            const Spacer(),
+            Text.rich(
+              TextSpan(
+                children: [
+                  const TextSpan(
+                    text: "Sellers: ",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  TextSpan(
+                    text: product.seller,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w800),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
         Row(
@@ -55,6 +71,7 @@ class ItemDetail extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 10),
       ],
     );
   }

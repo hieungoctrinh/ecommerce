@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/constant.dart';
+import 'package:food_app/details/Widget/addto_card.dart';
+import 'package:food_app/details/Widget/description.dart';
 import 'package:food_app/details/Widget/detail_app_bar.dart';
 import 'package:food_app/details/Widget/image_slider.dart';
 import 'package:food_app/details/Widget/item_detail.dart';
@@ -15,6 +17,7 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   int currentImage = 0;
+  int currentColors = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +72,51 @@ class _DetailScreenState extends State<DetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ItemDetail(product: widget.product),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: List.generate(
+                        widget.product.colors.length,
+                        (index) => GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              currentColors = index;
+                            });
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(
+                              microseconds: 300,
+                            ),
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: currentColors == index
+                                  ? Colors.white
+                                  : widget.product.colors[index],
+                              border: currentColors == index
+                                  ? Border.all(
+                                      color: widget.product.colors[index],
+                                    )
+                                  : null,
+                            ),
+                            padding: currentColors == index
+                                ? const EdgeInsets.all(2)
+                                : null,
+                            margin: const EdgeInsets.only(right: 5),
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: widget.product.colors[index],
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Description(description: widget.product.description),
                   ],
                 ),
               ),
@@ -76,6 +124,8 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
+      floatingActionButton: AddToCard(product: widget.product),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
