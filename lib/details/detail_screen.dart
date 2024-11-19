@@ -124,7 +124,10 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
-      floatingActionButton: AddToCard(product: widget.product),
+      floatingActionButton: AddToCard(
+        product: widget.product,
+        index: 0,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

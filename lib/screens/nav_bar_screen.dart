@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_app/provider/app_provider.dart';
 import 'package:go_router/go_router.dart';
@@ -53,6 +55,7 @@ class BottomNavBar extends StatelessWidget {
           IconButton(
             onPressed: () {
               appState.updateIndex(2);
+              log("0");
               context.go('/cart');
             },
             icon: Icon(
