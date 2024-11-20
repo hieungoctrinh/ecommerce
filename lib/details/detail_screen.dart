@@ -27,7 +27,9 @@ class _DetailScreenState extends State<DetailScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const DetailAppBar(),
+              DetailAppBar(
+                product: widget.product,
+              ),
               MyImageSlider(
                 image: widget.product.image,
                 onChange: (index) {
@@ -124,8 +126,10 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
-      floatingActionButton: AddToCard(product: widget.product),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: AddToCard(
+        product: widget.product,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }
