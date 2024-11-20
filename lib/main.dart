@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/provider/app_provider.dart';
 import 'package:food_app/provider/cart_provider.dart';
+import 'package:food_app/provider/favorite_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'package:food_app/screens/nav_bar_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:food_app/screens/home/home_screen.dart';
-import 'package:food_app/screens/favorite.dart';
+import 'package:food_app/screens/favorite/favorite.dart';
 import 'package:food_app/screens/cart/cart_screen.dart';
 import 'package:food_app/details/detail_screen.dart';
 import 'package:food_app/models/product_model.dart';
@@ -17,6 +18,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => AppState()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
       ],
       child: const MyApp(),
     ),
@@ -35,7 +37,6 @@ class MyApp extends StatelessWidget {
       routes: [
         ShellRoute(
           builder: (context, state, child) {
-            // Đồng bộ currentIndex với AppState khi điều hướng
             final currentIndex = _getCurrentIndex(state.location);
             WidgetsBinding.instance.addPostFrameCallback((_) {
               appState.updateIndex(currentIndex);

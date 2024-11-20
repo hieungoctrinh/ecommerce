@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-
 import 'package:go_router/go_router.dart';
 
+import 'package:food_app/models/product_model.dart';
+import 'package:food_app/provider/favorite_provider.dart';
+
 class DetailAppBar extends StatefulWidget {
-  const DetailAppBar({super.key});
+  final Product product;
+  const DetailAppBar({
+    super.key,
+    required this.product,
+  });
 
   @override
   State<DetailAppBar> createState() => _DetailAppBarState();
@@ -12,6 +18,7 @@ class DetailAppBar extends StatefulWidget {
 class _DetailAppBarState extends State<DetailAppBar> {
   @override
   Widget build(BuildContext context) {
+    final provider = FavoriteProvider.of(context);
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Row(
@@ -38,8 +45,14 @@ class _DetailAppBarState extends State<DetailAppBar> {
               backgroundColor: Colors.white,
               padding: const EdgeInsets.all(10),
             ),
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_border),
+            onPressed: () {
+              provider.toggleFavorite(widget.product);
+            },
+            icon: Icon(
+              provider.isExist(widget.product)
+                  ? Icons.favorite
+                  : Icons.favorite_border,
+            ),
           ),
         ],
       ),

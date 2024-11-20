@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/constant.dart';
 import 'package:food_app/models/product_model.dart';
+import 'package:food_app/provider/favorite_provider.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductCart extends StatelessWidget {
@@ -9,6 +10,7 @@ class ProductCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = FavoriteProvider.of(context);
     return GestureDetector(
       onTap: () => context.push('/details', extra: product),
       child: Stack(
@@ -89,10 +91,13 @@ class ProductCart extends StatelessWidget {
                   ),
                 ),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    provider.toggleFavorite(product);
+                  },
                   child: Icon(
-                    Icons.favorite_border,
-                    color: Colors.white,
+                    provider.isExist(product)
+                        ? Icons.favorite
+                        : Icons.favorite_border,
                     size: 22,
                   ),
                 ),

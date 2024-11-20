@@ -7,7 +7,7 @@ class CartProvider extends ChangeNotifier {
 
   List<Product> get cart => _carts;
 
-  void toggleFavorite(Product product) {
+  void toggleAddToCart(Product product) {
     if (_carts.contains(product)) {
       for (Product element in _carts) {
         element.quantity++;
@@ -23,17 +23,21 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void increment(int index) {
-    _carts[index].quantity++;
+  void increment(Product cart) {
+    cart.quantity++;
     notifyListeners();
   }
 
-  void decrement(int index) {
-    if (_carts[index].quantity > 1)
-      _carts[index].quantity--;
-    else
-      _carts.removeAt(index);
+  void decrement(Product cart) {
+    cart.quantity--;
     notifyListeners();
+  }
+
+  double calculateTotalPrice() {
+    return _carts.fold(
+      0.0,
+      (total, item) => total + (item.price * item.quantity),
+    );
   }
 
   static CartProvider of(BuildContext context, {bool listen = true}) {
